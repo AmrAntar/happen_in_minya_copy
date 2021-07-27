@@ -1,0 +1,56 @@
+{% load static %}
+
+
+<div class="col-lg-4 col-md-12 col-sm-12">
+
+    <div class="news-board">
+        <h3>الاخبار المضافه حديثا</h3>
+        <div class="news-roller">
+            <div class="slot1">
+                {% for post in recent_post %}
+                <p><a href="{{ post.get_absolute_url }}">
+                    <img src="{{ post.image.url }}">
+                    <span>{{ post.title }}</span>
+                </a></p>
+                {% endfor %}
+{#                <a class="slot2handle" href="#">مشاهدة المزيد من الاخبار</a>#}
+            </div>
+        </div>
+    </div>
+
+    <div class="news-board">
+        <h3>اقرأ ايضا</h3>
+        <div class="news-roller">
+            <div class="slot1">
+                {% for post in random_post %}
+                <p><a href="{{ post.get_absolute_url }}">
+                    <img src="{{ post.image.url }}">
+                    <span>{{ post.title }}</span>
+                </a></p>
+                {% endfor %}
+{#                <a class="slot2handle" href="#">مشاهدة المزيد من الاخبار</a>#}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="news-board">
+        <h3>اعلانات</h3>
+        <div class="card" style="width:100%;margin-left: auto;margin-right: auto;">
+            <img src="{% static 'img/pageIcon2.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">العنوان</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+            <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+</div>

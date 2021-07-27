@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    {% block meta %}
+
+    {% endblock %}
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- style button from buttom to top -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+    {# comments facebook #}
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v8.0&appId=342960193479956&autoLogAppEvents=1" nonce="kkR6nO85"></script>
+    {# like & share facebook #}
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v8.0&appId=342960193479956&autoLogAppEvents=1" nonce="jsenl72d"></script>
+
+
+
+    <!-- font-Awesome css -->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/category_tab.css' %}">
+
+
+    <link rel="icon" href="{% static 'img/x.ico' %}">
+
+
+
+
+    {% block title %}
+        <title></title>
+    {% endblock %}
+</head>
+<body>
+
+    <!-- Back to top button -->
+    <a id="button"></a>
+
+
+    {# comment in facebook #}
+    <div id="fb-root"></div>
+
+    {# like & share #}
+    <div id="fb-root"></div>
+
+
+
+    <!-- start top-big-nav -->
+    <div class="top-big-nav">
+        <div class="website-header">
+            <div class="social-icon">
+                <a href="https://www.facebook.com/Happen.in.Minya/?modal=admin_todo_tour"><i class="fab fa-facebook-f"></i></a>
+                <a href=""><i class="fab fa-twitter"></i></a>
+                <a href=""><i class="fab fa-instagram"></i></a>
+                <a href=""><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- end top-big-nav -->
+
+
+
+
+    <!-- start side bar -->
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+        <i class="fas fa-times" id="cancel"></i>
+    </label>
+    <div class="side-bar">
+        <header>
+            التصنيفات
+        </header>
+        <ul>
+            <li><a href="{% url 'news:home_page' %}"><i class="fas fa-home"></i>الرئيسيه</a></li>
+            {% for cat in categories %}
+            <li><a href="{{ cat.get_absolute_url }}"><i class="fas fa-newspaper"></i>{{ cat.title }}</a></li>
+            {% endfor %}
+            <hr style="height:2px;border-width:0;color:red;background-color:red">
+            <li><a href="{% url 'news:login' %}"><i class="fas fa-registered"></i>تسجيل</a></li>
+            <li><a href="{% url 'news:login' %}"><i class="fas fa-sign-in-alt"></i>دخول</a></li>
+
+        </ul>
+    </div>
+    <!-- end side bar -->
+
+
+
+
+    <div class="container">
+        <!-- start title -->
+        <div class="row mt-5">
+            <div class="col-lg-6 col-md-6 col-sm-12 text-center mx-auto">
+                <img src="{% static 'img/icon1111.png' %}" alt="">
+                <div class="">
+                    <h4 style="font-family: 'Tajawal'">الموقع الاخباري الاول في محافظة المنيا</h4>
+                    <p class="lead" style="font-family: 'Tajawal'">من حقك تعرف ...</p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 text-center mx-auto">
+                <img src="{% static 'img/adds1.jpg' %}" alt="" style="width: 100%">
+            </div>
+        </div>
+        <!-- end title -->
+
+
+        {% block search %}
+        <!-- Search form -->
+        <form class="form-inline d-flex justify-content-center md-form form-sm mt-3" method="get" action="{% url 'news:news_search' %}">
+            <i class="fas fa-search ml-4" aria-hidden="true"></i>
+            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="البحث"
+            aria-label="Search" name="q" value="{{ request.GET.q }}" required>
+        </form>
+        {% endblock %}
+
+
+        
+        {% block content %}
+        
+        {% endblock %}
+
+
+    </div>
+
+
+    <div class="footer">
+        <div class="container">
+            <div class="main-content">
+
+                <div class="right box">
+                    <h2>من نحن</h2>
+                    <div class="content">
+                        <p>يحدث في المنيا ، هو موقع اخباري ، يهتم بكل الاخبار التي تدور حول العالم ، وبالاخص اخبار محافظة المنيا ، تابع معنا اخر الاخبار لحظه بلحظه ،<br> معنا انت في قلب الاحداث.</p>
+                        <div class="social">
+                            <a href="https://www.facebook.com/Happen.in.Minya/?modal=admin_todo_tour"><span class="fab fa-facebook-f"></span></a>
+                            <a href=""><span class="fab fa-twitter"></span></a>
+                            <a href=""><span class="fab fa-instagram"></span></a>
+                            <a href=""><span class="fab fa-youtube"></span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="center box">
+                    <h2>العنوان</h2>
+                    <div class="content">
+                        <div class="place">
+                            <span class="fas fa-map-marker-alt"></span>
+                            <span class="text">المنيــا</span>
+                        </div>
+                        <div class="phone">
+                            <span class="fas fa-phone-alt"></span>
+                            <span class="text">01008340928</span>
+                        </div>
+                        <div class="email">
+                            <span class="fas fa-envelope"></span>
+                            <span class="text">amr4antar@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="left box">
+                    <h2>اتصل بنا</h2>
+                    <div class="content">
+                        <form action="">
+                            <div class="email">
+                                <div class="text">Email *</div>
+                                <input type="email"  required>
+                            </div>
+                            <div class="msg">
+                                <div class="text">Message *</div>
+                                <textarea cols="25" rows="2" required></textarea>
+                            </div>
+
+                                <button type="submit">Send</button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bottom">
+            <center>
+                <span class="far fa-copyright"></span><span>كل الحقوق محفوظه لصالح موقع يحدث في المنيا 2020</span><br>
+                <span class="credit">تم التصميم والتطوير بواسطة  <a href="https://www.facebook.com/profile.php?id=100007377310740">(م : عمرو عنتر)</a></span><br>
+            </center>
+        </div>
+
+    </div>
+
+
+    <!-- bootstrap js -->
+{#    <script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>#}
+    <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    {#  tickers  #}
+    <script src="{% static 'js/jquery.easy-ticker.min.js' %}"></script>
+
+
+
+    <!-- font-Awesome js -->
+    <!-- <script src="js/all.min.js"></script> -->
+     <!-- awon js -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+
+    <script>
+
+    </script>
+
+
+</body>
+</html>

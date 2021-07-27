@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+
+
+
+{% block title %}
+    {% if category %}
+    <title>{{ category.title }} | يحدث في المنيا</title>
+    {% else %}
+    <title>الرئيسيه | يحدث في المنيا</title>
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% block search %}
+        <hr>
+     {% endblock %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                 <h2 style="text-align: center;margin: 50px;font-family: 'Tajawal'">تحت الانشاء</h2>
+                 <h4 style="text-align: center;margin: 50px;font-family: 'Tajawal'"><a href="{% url 'news:home_page' %}" >عوده للموقع</a></h4>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

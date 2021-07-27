@@ -1,0 +1,34 @@
+{% load static %}
+
+
+{#pagination#}
+<div class="row">
+     <div class="col-12">
+        <div class="pagination" style="text-align: center;margin-top: 30px;">
+            {% if page.has_previous %}
+                <a href="?page={{ page.previous_page_number }}
+                    {% if request.GET.q %}
+                        &q={{ request.GET.q }}
+                    {% endif %}">&raquo;</a>
+            {% endif %}
+
+            {% for i in page.paginator.page_range %}
+                {% if page.number == i %}
+                    <a href="?page={{ i }}" class="active">{{ i }}</a>
+                {% else %}
+                    <a href="?page={{ i }}
+                     {% if request.GET.q %}
+                        &q={{ request.GET.q }}
+                    {% endif %}" class="">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page.has_next %}
+                <a href="?page={{ page.paginator.num_pages }}
+                {% if request.GET.q %}
+                    &q={{ request.GET.q }}
+                {% endif %}">&laquo;</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load embed_video_tags %}
+
+{% block meta %}
+
+<meta property="og:title" content= {% if videos %} '{{videos.caption}}' {% else %} "يحدث في المنيا" {% endif %}/>
+{#<!--<meta property="og:title" content= '{{posts.title}}'/>-->#}
+{##}
+{##}
+{#<!--<meta property="og:title" content="{{ posts.title }}" />-->#}
+{#<!--<meta property="og:type" content="website" />-->#}
+{#<!--<meta property="og:url" content="http://happeninminya.pythonanywhere.com/" />-->#}
+{#<!--<meta property="og:image" content="{{ posts.image.url }}"/>-->#}
+{#<!--<meta property="og:description" content="{{ posts.content| truncatewords:30 | safe }}"/>-->#}
+{#<!--<meta name="theme-color" content="#FF0000">-->#}
+{##}
+{# <!--Include this to make the og:image larger -->#}
+{#<!--<meta name="twitter:card" content="summary_large_image">-->#}
+
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+        <div class="news-portal category-tab mt-4">
+            <div class="row">
+                <!-- start right content -->
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                {% if category %}
+                   <h3 class="breadcrumb-item active" style=""><a class="breadcrumb-item" style="color: #fff;display: inline" href="{% url 'news:home_page' %}">{{ main }} &nbsp;/&nbsp;&nbsp;</a>{{ category.title }}</h3>
+                {% endif %}
+
+                    <div class="row" style="margin-bottom: 5px;">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3">
+                                <img src="{% static 'img/adds1.jpg' %}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">عنوان الاعلان</h5>
+                                  <p class="card-text">وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان</p>
+                                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% if posts %}
+                        {% for post in posts %}
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3 cat-card-row">
+                                <div class="row no-gutters">
+                                  <div class="col-md-4">
+                                    <p style="display: inline;padding: 5px"><i class="fas fa-tags" style="color: red"></i></p>
+                                      {% for tag in post.tags.all %}
+                                      <a href="{% url 'news:post_by_tag' tag.slug %}">{{ tag.name }}</a>
+
+                                      {% if not forloop.last %},{% endif %}
+                                      {% endfor %}
+                                    <img src="{{ post.image.url }}" class="card-img" alt="...">
+
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <a href="{{ post.get_absolute_url }}"><h4 class="card-title">{{ post.title }}</h4></a>
+                                      <p class="card-text mt-1 mb-2"><small class="text-muted float-left ml-5"><i class="fas fa-eye" style="color: red"></i>&nbsp;{{ post.views }}</small><small class="text-muted"><i class="fas fa-user" style="color: red"></i>&nbsp; الادمن</small></p>
+                                      <h6 class="card-text mt-1 mb-1" style="font-family: 'Tajawal'">{{ post.content | truncatewords:30 | safe }}</h6>
+                                      <p class="card-text mt-2"><small class="text-muted"><i class="fas fa-clock" style="color: red"></i>&nbsp;{{ post.publish |date:'d F Y' }}</small></p>
+{#                                      <p style="display: inline"><i class="fas fa-tags" style="color: red"></i></p>#}
+{#                                      {% for tag in post.tags.all %}#}
+{#                                      <a href="{% url 'news:post_by_tag' tag.slug %}">{{ tag.name }}</a>#}
+{##}
+{#                                      {% if not forloop.last %},{% endif %}#}
+{#                                      {% endfor %}#}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        {% endfor %}
+
+                        {% else %}
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3 mt-2" style="background: transparent;border: none">
+                            <div class="row no-gutters">
+                                {% for i in videos %}
+                                  <div class="col-lg-5 col-md-6 col-sm-12">
+                                        <figure style="width: 100%;height: 195px;">
+                                            {% video i.video '100% x 100%' %}
+                                        </figure>
+                                          {#<p style="display: inline"><i class="fas fa-tags" style="color: red"></i> :</p>#}
+    {#                                      {% for tag in post.tags.all %}#}
+    {#                                      <a href="{% url 'news:post_by_tag' tag.slug %}">{{ tag.name }}</a>#}
+    {##}
+    {#                                      {% if not forloop.last %},{% endif %}#}
+    {#                                      {% endfor %}#}
+
+                                  </div>
+                                  <div class="col-lg-7 col-md-6 col-sm 12">
+                                    <div class="card-body">
+                                      <h4 class="card-title" style="font-size: 18px">{{ i.caption }}</h4>
+                                      <div class="fb-like mt-3" data-href="{{ request.build_absolute_uri }}" data-width="200" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+{#                                      <p style="display: inline"><i class="fas fa-tags" style="color: red"></i></p>#}
+{#                                      {% for tag in post.tags.all %}#}
+{#                                      <a href="{% url 'news:post_by_tag' tag.slug %}">{{ tag.name }}</a>#}
+{##}
+{#                                      {% if not forloop.last %},{% endif %}#}
+{#                                      {% endfor %}#}
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                            </div>
+                         </div>
+                        </div>
+                        {% endif %}
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3">
+                                <img src="{% static 'img/adds1.jpg' %}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">عنوان الاعلان</h5>
+                                  <p class="card-text">وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان</p>
+                                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3">
+                                <img src="{% static 'img/adds1.jpg' %}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">عنوان الاعلان</h5>
+                                  <p class="card-text">وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان</p>
+                                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+
+{#                    # Pagination#}
+                        {% include 'pagination.html' with page=posts %}
+
+                    </div>
+                </div>
+                <!-- end right content -->
+
+
+                <!-- start left content-->
+                {% include 'left_content.html' %}
+                <!-- end left content -->
+
+            </div>
+
+        </div>
+
+{% endblock %}

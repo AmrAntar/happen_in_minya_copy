@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block meta %}
+
+<meta property="og:title" content= {% if posts %} '{{posts.title}}' {% else %} "يحدث في المنيا" {% endif %}/>
+{#<!--<meta property="og:title" content= '{{posts.title}}'/>-->#}
+{##}
+{##}
+{#<!--<meta property="og:title" content="{{ posts.title }}" />-->#}
+{#<!--<meta property="og:type" content="website" />-->#}
+{#<!--<meta property="og:url" content="http://happeninminya.pythonanywhere.com/" />-->#}
+{#<!--<meta property="og:image" content="{{ posts.image.url }}"/>-->#}
+{#<!--<meta property="og:description" content="{{ posts.content| truncatewords:30 | safe }}"/>-->#}
+{#<!--<meta name="theme-color" content="#FF0000">-->#}
+{##}
+{# <!--Include this to make the og:image larger -->#}
+{#<!--<meta name="twitter:card" content="summary_large_image">-->#}
+
+
+{% endblock %}
+
+
+
+
+{% block title %}
+    {% if category %}
+    <title>{{ category.title }} | يحدث في المنيا</title>
+    {% else %}
+    <title>الرئيسيه | يحدث في المنيا</title>
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+
+
+        <div class="news-portal category-tab mt-4">
+            <div class="row">
+                <!-- start right content -->
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <h3><a href="{% url 'news:home_page' %}" style="color: white">{{ main }}</a></h3>
+
+                    <div class="row" style="margin-bottom: 5px;">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3 single-post p-3">
+                                  <h4 class="card-title" style="font-size: 28px">{{ posts.title }}</h4>
+                                  <p class="card-text mt-2" style="display: flex">
+                                  <span class="card-text"><i class="fas fa-user" style="color: red"></i>&nbsp; الادمن&nbsp;&nbsp;&nbsp;</span>
+                                  <span class="card-text"><i class="fas fa-clock" style="color: red"></i>&nbsp;{{ posts.publish |date:'d F Y' }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <span class="card-text"><i class="fas fa-eye" style="color: red"></i>&nbsp;{{ posts.views }}</span>
+                                  </p>
+
+
+                                  <p style="display: inline"><i class="fas fa-tags" style="color: red;"></i>
+                                      {% for tag in posts.tags.all %}
+                                      <a href="{% url 'news:post_by_tag' tag.slug %}">{{ tag.name }}</a>
+                                      {% if not forloop.last %},{% endif %}
+                                      {% endfor %}
+                                  </p>
+
+                                <img src="{{ posts.image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-width="200" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+                                  <p class="card-text article">{{ posts.content | safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="margin: 10px 20px">
+                            <h3>الاخبار المتعلقه</h3>
+                            {% if similar_posts %}
+                            {% for post in similar_posts %}
+                            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                                <figure>
+                                    <a href="{{ post.get_absolute_url }}" style="text-decoration: none;color: black;cursor: pointer">
+                                        <img src="{{ post.image.url }}" style="width:100%;">
+                                        <figcaption>
+                                            <h4 class="card-title">{{ post.title | truncatewords:9 }}</h4>
+                                            <p class="card-text mb-2"><strong class="text-muted">{{ post.publish |date:'d F Y' }}</strong></p>
+                                              <p style="display: inline"><i class="fas fa-tags" style="color: red"></i> :</p>
+                                                {% for tag in post.tags.all %}
+                                                 <a href="{% url 'news:post_by_tag' tag.slug %}">{{ tag.name }}</a>
+                                                {% if not forloop.last %},{% endif %}
+                                                {% endfor %}
+                                        </figcaption>
+                                    </a>
+                                </figure>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3">
+                                <img src="{% static 'img/adds1.jpg' %}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">عنوان الاعلان</h5>
+                                  <p class="card-text">وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان</p>
+                                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3">
+                                <img src="{% static 'img/adds1.jpg' %}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">عنوان الاعلان</h5>
+                                  <p class="card-text">وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان</p>
+                                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card mb-3">
+                                <img src="{% static 'img/adds1.jpg' %}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">عنوان الاعلان</h5>
+                                  <p class="card-text">وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان ، وصف الاعلان</p>
+                                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                     <hr class="mt-5">
+                    <!-- start comments facebook-right -->
+                    <div class="row" style="margin-top: 50px">
+                        <div class="col-12">
+                            <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5" data-width="100%"></div>
+                        </div>
+                    </div>
+                    <!-- end comments facebook-right -->
+
+                </div>
+                <!-- end right content -->
+
+
+                <!-- start left content-->
+                {% include 'left_content.html' %}
+                <!-- end left content -->
+
+
+
+            </div>
+        </div>
+
+{% endblock %}
